@@ -96,6 +96,7 @@ public class GamePlay extends World
 
     public int chooseBrokenLevel()
     {
+        System.out.println("hi");
         return 3 + Greenfoot.getRandomNumber(9);
     }
 
