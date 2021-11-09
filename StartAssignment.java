@@ -14,53 +14,45 @@ public class StartAssignment extends Button
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
 
-    GreenfootImage[] soundImage = new GreenfootImage[2]; //Stores "on" and "off" of sound figures
-    static int currIndex = 1;
+    GreenfootImage[] startImage = new GreenfootImage[2]; //Stores "light" and "dark" of start button images
+
     public StartAssignment()
     {
-        initMusicFigure();
-
+        initStartButton();
     }
 
     public void act() 
     {
-        SimpleTimer t = new SimpleTimer();
         checkHover();
         detectClick();
-
-        //for testing:
-
-       
-  
     }    
-    public void initMusicFigure()
-    {
-        soundImage[0] = new GreenfootImage("Start_Dark.png"); 
-        soundImage[1] = new GreenfootImage("Start_Light.png"); 
 
+    public void initStartButton()
+    {
+        startImage[0] = new GreenfootImage("Start_Dark.png"); 
+        startImage[1] = new GreenfootImage("Start_Light.png"); 
     }
 
     public void detectClick()
     {
         if(Greenfoot.mouseClicked(this))
         {
-            GamePlay game = new GamePlay();
-            Greenfoot.setWorld(game);
-
+            //Switch to the loading page
+            LoadingPage loading = new LoadingPage();
+            Greenfoot.setWorld(loading);
         }
 
     }
 
     public void checkHover()
     {
-
         if (Greenfoot.mouseMoved(this))
         {
-            setImage(soundImage[1]);
+            setImage(startImage[1]);
         }
         else if(Greenfoot.mouseMoved(null))
         {
-            setImage(soundImage[0]);
+            setImage(startImage[0]);
         }
 
     }

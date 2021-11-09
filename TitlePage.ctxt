@@ -4,5 +4,5 @@ comment0.text=\n\ Write\ a\ description\ of\ class\ MyWorld\ here.\n\ \n\ @Steve
 comment1.params=
 comment1.target=TitlePage()
 comment2.params=
-comment2.target=void\ act()
+comment2.target=void\ initializeVarible()
 numComments=3

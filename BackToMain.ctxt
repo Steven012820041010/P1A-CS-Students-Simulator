@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=BackToMain
+comment0.text=\n\ Write\ a\ description\ of\ class\ BackToMain\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=BackToMain()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ initBackButton()
+comment4.params=
+comment4.target=void\ detectClick()
+comment5.params=
+comment5.target=void\ checkHover()
+numComments=6

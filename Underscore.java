@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Underscore extends Actor
+public class Underscore extends Sign
 {
     /**
      * Act - do whatever the Underscore wants to do. This method is called whenever

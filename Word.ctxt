@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=Word
-comment0.text=\r\n\ Store\ the\ word\ list\r\n\ \r\n\ @Steven,\ Bill,\ Eric\ (your\ name)\ \r\n\ @Oct\ 28,\ 2021\r\n
-comment1.params=num
-comment1.target=Word(int)
-comment2.params=
-comment2.target=void\ act()
-numComments=3
