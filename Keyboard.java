@@ -20,15 +20,12 @@ public class Keyboard extends Actor
     static int word_X_Index = 300;
     int word_Y_Index = 350;
 
-    //int numOfSpace = 0;
-
     Stack<Label> letters = new Stack<Label>(); // store user's input
-    Queue<Integer> mistakeLetter = new LinkedList<Integer>(); // store
-
+    int numOfMistakeLetters = 0; // store
+   
     static String currWord = ""; //record the letters the user typed
     static int indexOfCurrentLetter = 0; // record the index of current letter
    
-
     GreenfootSound keyboardSound = new GreenfootSound("KBClick.wav");
 
     static int numberOfPressingTime = 0; // record number of time user that presses the keyboard
@@ -81,7 +78,7 @@ public class Keyboard extends Actor
                 //keyboardSound.play();
                 Label label = new Label(str, 25);
                 letters.add(label);
-                if (checkCorrectSpelling(world, str) && mistakeLetter.isEmpty())
+                if (checkCorrectSpelling(world, str) && numOfMistakeLetters == 0)
                 {
                     label.setFillColor(greenfoot.Color.BLACK);
 
@@ -89,7 +86,7 @@ public class Keyboard extends Actor
                 else
                 {
                     label.setFillColor(greenfoot.Color.RED);
-                    mistakeLetter.add(indexOfCurrentLetter);
+                    numOfMistakeLetters++;
                 }
                 numberOfPressingTime++;
 
@@ -119,9 +116,9 @@ public class Keyboard extends Actor
                 world.cursor_X-=20;
                 numberOfPressingTime--;
 
-                if (!mistakeLetter.isEmpty())
+                if (numOfMistakeLetters > 0)
                 {
-                    mistakeLetter.poll();
+                    numOfMistakeLetters--;
                 }
             }
             //System.out.println(word_X_Index);

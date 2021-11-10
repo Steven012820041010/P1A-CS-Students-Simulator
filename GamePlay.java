@@ -76,7 +76,7 @@ public class GamePlay extends World
 
         addObject(currAssign, 446,123);
 
-        displayLevel();
+        displayCurrAssignment();
         displayMark();
         assignLevelBroken = 3 + Greenfoot.getRandomNumber(9);
         difficulty = new int [4];
@@ -90,6 +90,7 @@ public class GamePlay extends World
         // setTimeCounter();
         getWord(level);
         //setUnderscore();
+        
         //print();
 
     }
@@ -100,29 +101,10 @@ public class GamePlay extends World
         return 3 + Greenfoot.getRandomNumber(9);
     }
 
-    public void ifWifiBroke()
-    {
-        if (currentAssignment == assignLevelBroken && wifiBrokenTime == 0)
-        {
-            //System.out.println("hi_[[[");
-
-            wifiBrokenTime++;
-            Keyboard.currWord = "";
-            clearStack();
-            Keyboard.indexOfCurrentLetter = 0;
-            System.out.println(keyboard.letters);
-            clearQueue();
-            cursor_X = setCursorX();
-            keyboard.setWordX(this);
-            keyboard.numberOfPressingTime = 0;
-            Wifi_Broke wifi = new Wifi_Broke();
-            Greenfoot.setWorld(wifi);
-            System.out.println("CurrAssignment " + currentAssignment);
-
-        }
-    }
-
-    public void displayLevel()
+    /**
+     * Display current assignment
+     */
+    public void displayCurrAssignment()
     {
         currAssign.setValue(currentAssignment);
         currAssign.setFillColor(greenfoot.Color.BLACK);
@@ -253,12 +235,18 @@ public class GamePlay extends World
 
     }
 
+    /** 
+     * Switch to the
+     */
     public void endGame()
     {
         EndScreen end = new EndScreen();
         Greenfoot.setWorld(end);
     }
 
+    /**
+     * Update the time to the next level
+     */
     public void updateTime()
     {
         if (currentAssignment % 3 == 0)
@@ -284,83 +272,102 @@ public class GamePlay extends World
         mark.update(this);
     }
 
+    public void correctAnswer()
+    {
+        nextLevelChoice = 2;
+        accept = new Gmail_Accepted();
+        addObject(accept, 760, 550);
+        Greenfoot.delay(200);
+        removeObject(accept);
+    }
+
+    public void wrongAnswer()
+    {
+        nextLevelChoice = 1;
+        typo = new Gmail_Typo();
+        addObject(typo, 760, 550);
+        Greenfoot.delay(200);
+        removeObject(typo);
+    }
+
     public void increaseLevel()
     {
 
         if (levelTimer.millisElapsed()>120)
         {
-
             if (Greenfoot.isKeyDown("enter"))
             {
-                gwailSound.play();
-                /*
-                removeObject(l);
-                l = new Label(level, 45);
-                addObject(l, 446,123);
-                 */
-                //System.out.println(keyboard.currWord);
+                gwailSound.play(); //Gmail notification sound effect
+
                 if (level < 5 && currentAssignment < 12)
                 {
                     if (keyboard.currWord.equals(ansKey))
                     {
-                        nextLevelChoice = 2;
-                        accept = new Gmail_Accepted();
-                        addObject(accept, 760, 550);
-                        Greenfoot.delay(200);
-                        removeObject(accept);
+                        correctAnswer();
                     }
                     else
                     {
-                        nextLevelChoice = 1;
-                        typo = new Gmail_Typo();
-                        addObject(typo, 760, 550);
-                        Greenfoot.delay(200);
-                        removeObject(typo);
+                        wrongAnswer();
                     }
 
                     updateTime();
-                    displayLevel();
-                    mark.update(this);
-
+                    displayCurrAssignment();
+                    mark.update(this);//update the mark from the previous assignment
                     reset();
 
-                    getWord(level);
+                    getWord(level);//get new words for the next level
                 }
                 else
                 {
-                    finalCheck();
+                    finalCheck();// To update the final round's mark
                     endGame();
                 }
                 currentAssignment++;
-
             }
             levelTimer.mark();
         }
 
     }
 
-    public void reset()
+    public void ifWifiBroke()
     {
-
-        removeObject(word);
-        clearUnderscoreSign();
-        keyboard.indexOfCurrentLetter = 0;
-
-        removeObject(on);
-        removeObject(off);
-        clearStack();
-        clearQueue();
-
-        cursor_X = setCursorX();
-        keyboard.setWordX(this);
-        keyboard.currWord = "";
-
-        entireTimer.mark();
-        keyboard.numberOfPressingTime = 0;
+        if (currentAssignment == assignLevelBroken && wifiBrokenTime == 0)
+        {
+            wifiBrokenTime++;
+            reset();
+            Wifi_Broke wifi = new Wifi_Broke();
+            Greenfoot.setWorld(wifi);
+        }
     }
 
     /**
-     * Rrr
+     * Clear all the stuffs on the page
+     */
+    public void reset()
+    {
+        //Remove 
+        removeObject(word); //Remove the display word on the top
+        clearStack();
+        clearQueue();
+        clearUnderscoreSign();
+
+        //Remove the cursor
+        removeObject(on);
+        removeObject(off);
+
+        //Re-initialize
+        cursor_X = setCursorX();
+        keyboard.setWordX(this);
+        keyboard.currWord = "";
+        keyboard.numOfMistakeLetters = 0;
+        keyboard.indexOfCurrentLetter = 0;
+        keyboard.numberOfPressingTime = 0;
+
+        entireTimer.mark();
+    }
+
+    /**
+     * Remove all the input letters from the previous level
      */
     public void clearStack()
     {
@@ -371,14 +378,6 @@ public class GamePlay extends World
 
     }
 
-    public void clearQueue()
-    {
-        while (!keyboard.mistakeLetter.isEmpty())
-        {
-            keyboard.mistakeLetter.poll();
-        }
-
-    }
 
     public void clearUnderscoreSign()
     {
