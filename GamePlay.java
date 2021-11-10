@@ -33,7 +33,7 @@ public class GamePlay extends World
     int [] lettersSize;
     Label currAssign;
 
-    static int current = 0;
+    static int current = 21;
     Label currentTime;
 
     int currUnderscoreX;
@@ -85,7 +85,7 @@ public class GamePlay extends World
 
         setDifficultyOfLevel();
         setRestrictionOfLevel();
-        updateTime();
+        //updateTime();
         currentTime = new Label (current, 40);
         // setTimeCounter();
         getWord(level);
@@ -117,6 +117,7 @@ public class GamePlay extends World
             keyboard.numberOfPressingTime = 0;
             Wifi_Broke wifi = new Wifi_Broke();
             Greenfoot.setWorld(wifi);
+            System.out.println("CurrAssignment " + currentAssignment);
 
         }
     }
