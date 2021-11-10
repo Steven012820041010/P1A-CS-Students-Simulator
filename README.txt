@@ -55,5 +55,6 @@ Additions:
 A "loading screen" that looks like a browser window trying to load a webpage
 An "email notification" telling the user if the assignment is correct, wrong or late
 Final screen that records user's high scores
+A restart button on the final screen that allows the user to play again, while keeping track of the highscores
 Display a different "teacher's comment" to the user based on the score at the end screen
 There is a random chance that an "internet outage" would happen when the user is typing, which would display the "connection reset" screen for a few seconds before letting the user go back into the assignment again
