@@ -89,15 +89,13 @@ public class GamePlay extends World
         currentTime = new Label (current, 40);
         // setTimeCounter();
         getWord(level);
-        //setUnderscore();
-        
-        //print();
+
 
     }
 
     public int chooseBrokenLevel()
     {
-        System.out.println("hi");
+        
         return 3 + Greenfoot.getRandomNumber(9);
     }
 
@@ -123,23 +121,18 @@ public class GamePlay extends World
     {
         if (cursorTimer.millisElapsed() > 300)
         {
-
             if(currentCursorIndex == 0)
             {
                 removeObject(off);
-
                 on = new Cursor_On();
                 addObject(on, cursor_X, cursor_Y);
-
                 currentCursorIndex = 1 - currentCursorIndex;
             }
             else if (currentCursorIndex == 1)
             {
                 removeObject(on);
-
                 off = new Cursor_Off();
                 addObject(off, cursor_X, cursor_Y);
-
                 currentCursorIndex = 1 - currentCursorIndex;
             }
             cursorTimer.mark();
@@ -153,19 +146,19 @@ public class GamePlay extends World
         displayCursor();
         increaseLevel();
         countTime();
-        displayLevel();
+        displayCurrAssignment();
         displayMark();
         ifWifiBroke();
 
-        if (entireTimer.millisElapsed() < 19){
-            Keyboard.currWord = "";
+        if (entireTimer.millisElapsed() < 19){// Don't allow user to type during the loading page
             clearStack();
+            
+            cursor_X = setCursorX();
+            Keyboard.currWord = "";
             Keyboard.indexOfCurrentLetter = 0;
             keyboard.setWordX(this);
-            System.out.println(keyboard.word_X_Index);
-            clearQueue();
-            cursor_X = setCursorX();
             keyboard.numberOfPressingTime = 0;
+
         }
     }
 
@@ -186,57 +179,8 @@ public class GamePlay extends World
         lettersSize[4] = 20;
     }
 
-    /*
-    public void update(){
-    current = difficulty[level-1]+1;
-    }
-     */
-
-    public void countTime()
-    {
-
-        //System.out.println("hi");
-        if (timeTimer.millisElapsed()>1000)
-        {
-            //System.out.println("Hi" + timeTimer.millisElapsed());
-            current--;
-            if (current < 0)
-            {
-                if (level < 5 && currentAssignment <= 12)
-                {
-                    gwailSound.play();
-                    nextLevelChoice = 0;
-
-                    updateTime();
-                    late = new Gmail_Late();
-                    addObject(late, 760, 550);
-                    Greenfoot.delay(200);
-                    removeObject(late);
-                    mark.update(this);
-                    reset();
-
-                    getWord(level);
-
-                }
-                else
-                {
-                    finalCheck();
-                    endGame();
-                }
-            }
-            currentTime.setValue(current);
-            currentTime.setFillColor(greenfoot.Color.RED);
-            addObject(currentTime,850, 120);
-            //  removeObject(currentTime);
-
-            timeTimer.mark();
-
-        }
-
-    }
-
     /** 
-     * Switch to the
+     * Switch to the the end screen
      */
     public void endGame()
     {
@@ -286,8 +230,51 @@ public class GamePlay extends World
         nextLevelChoice = 1;
         typo = new Gmail_Typo();
         addObject(typo, 760, 550);
-        Greenfoot.delay(200);
+        Greenfoot.delay(20);
         removeObject(typo);
+    }
+
+    public void missed()
+    {
+        nextLevelChoice = 0;
+        late = new Gmail_Late();
+        addObject(late, 760, 550);
+        Greenfoot.delay(200);
+        removeObject(late);
+    }
+
+    public void countTime()
+    {
+        if (timeTimer.millisElapsed()>1000)
+        {
+            current--; 
+            if (current < 0)
+            {
+                if (level < 5 && currentAssignment < 12)
+                {
+                    gwailSound.play();
+                    updateTime();
+                    mark.update(this);
+                    reset();
+                    getWord(level);
+                    currentAssignment++;
+                }
+                else
+                {
+                    finalCheck();
+                    endGame();
+                }
+                
+            }
+            displayCurrAssignment();
+            currentTime.setValue(current);
+            currentTime.setFillColor(greenfoot.Color.RED);
+            addObject(currentTime,850, 120);
+
+            timeTimer.mark();
+
+        }
+
     }
 
     public void increaseLevel()
@@ -348,7 +335,7 @@ public class GamePlay extends World
         //Remove 
         removeObject(word); //Remove the display word on the top
         clearStack();
-        clearQueue();
+
         clearUnderscoreSign();
 
         //Remove the cursor
@@ -377,7 +364,6 @@ public class GamePlay extends World
         }
 
     }
-
 
     public void clearUnderscoreSign()
     {

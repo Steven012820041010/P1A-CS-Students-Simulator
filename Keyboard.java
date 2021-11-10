@@ -35,10 +35,6 @@ public class Keyboard extends Actor
 
     }
 
-    public void act() 
-    {
-
-    }   
 
     public void setWordX(GamePlay world)
     {
