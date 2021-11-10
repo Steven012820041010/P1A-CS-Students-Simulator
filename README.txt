@@ -37,3 +37,23 @@ Arraylist<String> list in Reader class
 
 List<double> highScores located in EndScreen class
 - Stores the scores generated after each playthrough, and the list is sorted so it presents the highscores in the order of high to low.
+
+
+
+
+FEATURES
+
+Base game:
+Reads items from an a word list URL and generates a list of words, that gets longer and has more words in total as the level increases
+Detects user keyboard input, print the input on screen and compares it with the generated word list
+Generate a set of underscores and print it on the screen to indicate to the user how many letters are left to type and where should the spaces be typed
+Timer for each level
+Keeping track of the number of passed levels and number of failed levels (late submission or typo)
+Generates a "mark" based on user performance
+
+Additions:
+A "loading screen" that looks like a browser window trying to load a webpage
+An "email notification" telling the user if the assignment is correct, wrong or late
+Final screen that records user's high scores
+Display a different "teacher's comment" to the user based on the score at the end screen
+There is a random chance that an "internet outage" would happen when the user is typing, which would display the "connection reset" screen for a few seconds before letting the user go back into the assignment again
