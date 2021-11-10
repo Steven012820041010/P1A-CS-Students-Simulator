@@ -3,8 +3,8 @@ import java.util.*;
 /**
  * Write a description of class Keyboard here.
  * 
- * @author (your name) 
- * Oct 28, 2021
+ * @Steven Zhu, Bill wei
+ * @Version Oct 28, 2021
  */
 public class Keyboard extends Actor
 {

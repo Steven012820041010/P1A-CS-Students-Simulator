@@ -46,7 +46,7 @@ public class GamePlay extends World
     static int cursor_Y = 350;
 
     int nextLevelChoice = 0;
-    
+
     int assignLevelBroken;
     //Time out: 0
     //Typo: 1
@@ -71,7 +71,7 @@ public class GamePlay extends World
         late = new Gmail_Late();
         typo = new Gmail_Typo();
         storeUnderscore = new ArrayList<Underscore>();
-        
+
         currAssign = new Label(currentAssignment, 45);
 
         addObject(currAssign, 446,123);
@@ -174,16 +174,16 @@ public class GamePlay extends World
         displayLevel();
         displayMark();
         ifWifiBroke();
-        
+
         if (entireTimer.millisElapsed() < 19){
-             Keyboard.currWord = "";
+            Keyboard.currWord = "";
             clearStack();
             Keyboard.indexOfCurrentLetter = 0;
             keyboard.setWordX(this);
             System.out.println(keyboard.word_X_Index);
             clearQueue();
             cursor_X = setCursorX();
-             keyboard.numberOfPressingTime = 0;
+            keyboard.numberOfPressingTime = 0;
         }
     }
 
@@ -286,9 +286,7 @@ public class GamePlay extends World
 
     public void increaseLevel()
     {
-        
-        
-        
+
         if (levelTimer.millisElapsed()>120)
         {
 
@@ -335,10 +333,7 @@ public class GamePlay extends World
                 }
                 currentAssignment++;
 
-                
-
             }
-
             levelTimer.mark();
         }
 
@@ -350,9 +345,7 @@ public class GamePlay extends World
         removeObject(word);
         clearUnderscoreSign();
         keyboard.indexOfCurrentLetter = 0;
-        
-        
-        
+
         removeObject(on);
         removeObject(off);
         clearStack();
@@ -361,11 +354,14 @@ public class GamePlay extends World
         cursor_X = setCursorX();
         keyboard.setWordX(this);
         keyboard.currWord = "";
-        
+
         entireTimer.mark();
         keyboard.numberOfPressingTime = 0;
     }
 
+    /**
+     * Rrr
+     */
     public void clearStack()
     {
         while (!keyboard.letters.isEmpty())
@@ -393,9 +389,11 @@ public class GamePlay extends World
         }
     }
 
+    /**
+     * Set the bumber of letters in each level
+     */
     public int setLevelWordLength()
     {
-        // Number of letters in each level
         switch (level)
         {
             case 1:
@@ -411,9 +409,12 @@ public class GamePlay extends World
             return 20;
 
         }
-        return 0;
+        return 10;
     }
 
+    /**
+     * Set the x-index of underscore based on different level
+     */
     public int setUnderscoreX()
     {
         switch (level)
@@ -429,12 +430,13 @@ public class GamePlay extends World
 
             case 4:
             return 187;
-
         }
-
-        return 1;
+        return 303;
     }
 
+    /**
+     * Set the x-index of cursor based on different level
+     */
     public int setCursorX()
     {
         switch (level)
@@ -452,7 +454,7 @@ public class GamePlay extends World
             return 175;
 
         }
-        return 0;
+        return 295;
     }
 
     public void displayUnderscoreSign(Underscore l, String x)
@@ -466,30 +468,30 @@ public class GamePlay extends World
         }
     }
 
+    /**
+     * Get the words for each level
+     */
     public void getWord(int level)
     {
         try
         {
-            int MAX_LENGTH = setLevelWordLength();
-            ArrayList<String> test = reader.read(level+1, 1000, MAX_LENGTH, this);
-            //System.out.println("Level: " + level);
-            //System.out.println(test);
-            // ArrayList<String> test = newWords(MAX_LENGTH);
+            int MAX_LENGTH = setLevelWordLength(); //Set the number of letters in each level
+            ArrayList<String> test = reader.read(level+1, 1000, MAX_LENGTH, this); //Get the words from the url
 
-            String storeStr = "";
+            String storeStr = ""; //Store the words
+
             Underscore line = new Underscore();
             currUnderscoreX = setUnderscoreX(); // set the underscore sign's beginning x-index
 
             for (String x : test)
             {
-                displayUnderscoreSign(line, x);
+                displayUnderscoreSign(line, x); //Show the underscore signs
                 storeStr += x + " ";
-                currUnderscoreX += 20; // Whitespace 
+                currUnderscoreX += 20; // Add the x-index due to whitespace 
             }
-            //currentWordLength = storeStr.length()-1;
             ansKey = storeStr.trim();
-            word = new Label(storeStr, 24);
 
+            word = new Label(storeStr, 24);
             word.setFillColor(greenfoot.Color.BLACK);
             addObject(word, 415, 237);
         }
@@ -500,21 +502,14 @@ public class GamePlay extends World
 
     }
 
-    /*
-    public ArrayList<String> newWords(int MAX_LENGTH)
-    {
-
-    return test;
-    }
+    /**
+     * Keep detecting the letters from the keyboard
      */
-
     public void getInput()
     {
-        //Letters
         String str = Greenfoot.getKey();
+        if (str != null){
 
-        if (str != null && LoadingPage.canType){
-            System.out.println("wsssss");
             if (str.equals("backspace"))
             {
                 keyboard.remove(this);
@@ -524,6 +519,7 @@ public class GamePlay extends World
             {
                 keyboard.type(this, " ");
             }
+
             else if (onlyLetters(str))
             {
                 keyboard.type(this, str);
@@ -533,12 +529,11 @@ public class GamePlay extends World
 
     }
 
+    /**
+     * Check if str is a letter
+     */
     public boolean onlyLetters (String str)
     {
         return str.length() == 1;
-        /*
-        return !str.equals("enter") && !str.equals("caps lock") && !str.equals("shift") && !str.equals("command") && !str.equals("control") && !str.equals("alt") && !str.equals("tab") && !str.equals("escape")
-        && !str.equals("up") && !str.equals("down") && !str.equals("right") && !str.equals("left");
-         */
     }
 }

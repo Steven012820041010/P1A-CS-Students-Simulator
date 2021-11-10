@@ -25,6 +25,9 @@ public class TitlePage extends World
 
     }
 
+    /**
+     * Initialize all the static variables from each class while the user replays the game
+     */
     public void initializeVarible()
     {
         GamePlay.current = 20;
