@@ -20,7 +20,7 @@ public class Wifi_Broke extends World
     
     public void act()
     {
-        Greenfoot.delay(80); // Allow reader to read the descriptions from the page
+        Greenfoot.delay(800); // Allow reader to read the descriptions from the page
         
         //Switch to the loading page
         LoadingPage loading = new LoadingPage();

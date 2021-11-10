@@ -8,52 +8,49 @@ import java.util.*;
  */
 public class GamePlay extends World
 {
-    GreenfootSound gwailSound = new GreenfootSound("gwail_sound.mp3");     
-    Keyboard keyboard;
-    Marks mark;
-    Percentage percentage;
+    GreenfootSound gwailSound = new GreenfootSound("gwail_sound.mp3"); 
+    SimpleTimer levelTimer = new SimpleTimer(); // control the level
+    SimpleTimer timeTimer = new SimpleTimer(); // control the time decreasing speed
+    SimpleTimer cursorTimer = new SimpleTimer(); // control the cursor flashing speed
+    SimpleTimer entireTimer = new SimpleTimer(); // record the entire time
 
-    Gmail_Accepted accept;
+    List<Underscore> storeUnderscore; 
+
+    Marks mark;
     Gmail_Late late;
     Gmail_Typo typo;
-
-    Reader reader = new Reader();
-
-    Random random = new Random();
-    static int wifiBrokenTime = 0;
-
-    SimpleTimer levelTimer = new SimpleTimer();
-    SimpleTimer timeTimer = new SimpleTimer();
-    SimpleTimer cursorTimer = new SimpleTimer();
-    SimpleTimer entireTimer = new SimpleTimer();
-
-    static int level = 1;
-    static int currentAssignment = 1;
-    int [] difficulty;
-    int [] lettersSize;
+    Gmail_Accepted accept;
+    Keyboard keyboard;
+    Percentage percentage;
+    Label word;
     Label currAssign;
-
-    static int current = 21;
     Label currentTime;
-
-    int currUnderscoreX;
-
-    String ansKey = "";
     Cursor_On on;
     Cursor_Off off;
-    int currentCursorIndex = 0;
+
+    Reader reader = new Reader();
+    Random random = new Random();
+
+    static int level = 1;
+    static int current = 21;
     static int cursor_X = 295;
     static int cursor_Y = 350;
+    static int wifiBrokenTime = 0;
+    static int currentAssignment = 1;
 
-    int nextLevelChoice = 0;
-
+    String ansKey = "";
+    int [] difficulty;
+    int [] lettersSize;
+    int currUnderscoreX;
     int assignLevelBroken;
+    int currentCursorIndex = 0;
     //Time out: 0
     //Typo: 1
     //Accepted: 2
-    Label word;
+    int nextLevelChoice = 0;
 
-    List<Underscore> storeUnderscore; 
+    
+    
     /**
      * Constructor for objects of class GamePlay.
      * 
@@ -62,45 +59,43 @@ public class GamePlay extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1);
+        //Initialize
         mark = new Marks();
-        percentage = new Percentage();
-        keyboard = new Keyboard();
         on = new Cursor_On();
         off = new Cursor_Off();
-        accept = new Gmail_Accepted();
+        keyboard = new Keyboard();
         late = new Gmail_Late();
         typo = new Gmail_Typo();
+        accept = new Gmail_Accepted();
+        percentage = new Percentage(); 
         storeUnderscore = new ArrayList<Underscore>();
-
-        currAssign = new Label(currentAssignment, 45);
-
-        addObject(currAssign, 446,123);
-
-        displayCurrAssignment();
-        displayMark();
-        assignLevelBroken = 3 + Greenfoot.getRandomNumber(9);
         difficulty = new int [4];
         lettersSize = new int[5];
-        // seconds = new Label [difficulty.length][];
+        currentTime = new Label (current, 40);
+        currAssign = new Label(currentAssignment, 45);
+        assignLevelBroken = chooseBrokenLevel(); // get a broken level from 3 to 11
 
+        //Display the objects on screen
+        displayMark();
+        displayCurrAssignment();
         setDifficultyOfLevel();
         setRestrictionOfLevel();
-        //updateTime();
-        currentTime = new Label (current, 40);
-        // setTimeCounter();
+        keyboard.setWordX(this);
+        addObject(currAssign, 446,123);
         getWord(level);
 
-
-    }
-
-    public int chooseBrokenLevel()
-    {
-        
-        return 3 + Greenfoot.getRandomNumber(9);
     }
 
     /**
-     * Display current assignment
+     * Choosen a wifi broken level randomly from 3 to 11
+     */
+    public int chooseBrokenLevel()
+    {
+        return 3 + Greenfoot.getRandomNumber(8);
+    }
+
+    /**
+     * Display current assignment number
      */
     public void displayCurrAssignment()
     {
@@ -149,12 +144,19 @@ public class GamePlay extends World
         displayCurrAssignment();
         displayMark();
         ifWifiBroke();
+        avoidTypingDuringLoading();
+    }
 
-        if (entireTimer.millisElapsed() < 19){// Don't allow user to type during the loading page
+    /**
+     * Don't allow user to type during the loading page
+     */
+    public void avoidTypingDuringLoading()
+    {
+        if (entireTimer.millisElapsed() < 19){
             clearStack();
-            
             cursor_X = setCursorX();
             Keyboard.currWord = "";
+            keyboard.numOfMistakeLetters = 0;
             Keyboard.indexOfCurrentLetter = 0;
             keyboard.setWordX(this);
             keyboard.numberOfPressingTime = 0;
@@ -220,7 +222,7 @@ public class GamePlay extends World
     {
         nextLevelChoice = 2;
         accept = new Gmail_Accepted();
-        addObject(accept, 760, 550);
+        addObject(accept, 760, 518);
         Greenfoot.delay(200);
         removeObject(accept);
     }
@@ -229,8 +231,8 @@ public class GamePlay extends World
     {
         nextLevelChoice = 1;
         typo = new Gmail_Typo();
-        addObject(typo, 760, 550);
-        Greenfoot.delay(20);
+        addObject(typo, 760, 518);
+        Greenfoot.delay(200);
         removeObject(typo);
     }
 
@@ -238,7 +240,7 @@ public class GamePlay extends World
     {
         nextLevelChoice = 0;
         late = new Gmail_Late();
-        addObject(late, 760, 550);
+        addObject(late, 74, 518);
         Greenfoot.delay(200);
         removeObject(late);
     }
@@ -253,6 +255,7 @@ public class GamePlay extends World
                 if (level < 5 && currentAssignment < 12)
                 {
                     gwailSound.play();
+                    missed();
                     updateTime();
                     mark.update(this);
                     reset();
@@ -264,7 +267,7 @@ public class GamePlay extends World
                     finalCheck();
                     endGame();
                 }
-                
+
             }
             displayCurrAssignment();
             currentTime.setValue(current);

@@ -12,120 +12,127 @@ public class Keyboard extends Actor
      * Act - do whatever the Keyboard wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-
-    SimpleTimer timer = new SimpleTimer();
+    GreenfootSound keyboardSound = new GreenfootSound("KBClick.wav");
+    SimpleTimer timer = new SimpleTimer(); // control the typing speed
     SimpleTimer removeTimer = new SimpleTimer();
 
     GamePlay world;
     static int word_X_Index = 300;
-    int word_Y_Index = 350;
-
-    Stack<Label> letters = new Stack<Label>(); // store user's input
-    int numOfMistakeLetters = 0; // store
-   
-    static String currWord = ""; //record the letters the user typed
+    static int word_Y_Index = 350;
     static int indexOfCurrentLetter = 0; // record the index of current letter
-   
-    GreenfootSound keyboardSound = new GreenfootSound("KBClick.wav");
-
     static int numberOfPressingTime = 0; // record number of time user that presses the keyboard
+    static String currWord = ""; //record the letters the user typed
 
-    public Keyboard(){
-        world = (GamePlay)getWorld();
+    int numOfMistakeLetters = 0; // record the numbers of mistake letter
+    Stack<Label> letters = new Stack<Label>(); // store user's input
 
-    }
-
-
+    /**
+     * Set the word index based on different level
+     */
     public void setWordX(GamePlay world)
     {
         switch (world.level)
         {
             case 1:
-            word_X_Index = 300;
+            word_X_Index = 280;
             break;
 
             case 2:
-            word_X_Index = 270;
+            word_X_Index = 250;
             break;
 
             case 3:
-            word_X_Index = 235;
+            word_X_Index = 215;
             break;
 
             case 4:
-            word_X_Index = 185;
+            word_X_Index = 165;
             break;
 
         }
 
     }
 
+    public int numOfSpace()
+    {
+        //Level 1: 1 space
+        //Level 2: 1 space
+        //Level 3: 2 sapce
+        //Level 4: 3 space
+        return world.level >= 3 ? world.level - 2 : 0;
+    }
+
+    /**
+     * Receive a input from user and display on the screen
+     */
     public void type(GamePlay world, String str)
     {   
-
         if (timer.millisElapsed()>30)
         {
             timer.mark();
-            
-            int num = world.level >= 3 ? world.level - 2 : 0;
-            if (numberOfPressingTime <= world.lettersSize[world.level] + num)
+            int numberOfSpace = numOfSpace();
+            if (numberOfPressingTime <= world.lettersSize[world.level] + numberOfSpace)
             {
                 keyboardSound.play();
-                //keyboardSound.play();
-                Label label = new Label(str, 25);
-                letters.add(label);
+                Label currentLetter = new Label(str, 25); //Set the current letter into a label
+                letters.add(currentLetter);
                 if (checkCorrectSpelling(world, str) && numOfMistakeLetters == 0)
                 {
-                    label.setFillColor(greenfoot.Color.BLACK);
-
+                    currentLetter.setFillColor(greenfoot.Color.BLACK);
                 }
                 else
                 {
-                    label.setFillColor(greenfoot.Color.RED);
-                    numOfMistakeLetters++;
+                    currentLetter.setFillColor(greenfoot.Color.RED);
+                    numOfMistakeLetters++; //Because user has a wrong input from the previous
                 }
-                numberOfPressingTime++;
-
-                currWord += str;
-                world.cursor_X += 20;
-                //label.setFillColor(greenfoot.Color.BLACK);
-                indexOfCurrentLetter++;
-                world.addObject(label, word_X_Index, word_Y_Index);
-                word_X_Index += 20;
-                
-                
+                increaseTheIndexAndVariable(str);
+                world.addObject(currentLetter, word_X_Index, word_Y_Index);
             }
-
         }
-
     }
 
+    /**
+     * Remove the previous letter while user presses backspace
+     */
     public void remove(GamePlay world)
     {
         if (removeTimer.millisElapsed()>60){
-            if (!letters.isEmpty()){
-
-                world.removeObject(letters.pop());
-                currWord = currWord.substring(0, currWord.length()-1);
-                word_X_Index -= 20;
-                indexOfCurrentLetter--;
-                world.cursor_X-=20;
-                numberOfPressingTime--;
-
-                if (numOfMistakeLetters > 0)
-                {
-                    numOfMistakeLetters--;
-                }
+            if (!letters.isEmpty()){ //Check if there's letter in stack that can be removed
+                world.removeObject(letters.pop());//remove the letter
+                decreaseTheIndexAndVariable();
             }
-            //System.out.println(word_X_Index);
         }
         removeTimer.mark();
     }
 
+    public void increaseTheIndexAndVariable(String str)
+    {
+        currWord += str;
+        word_X_Index += 20;
+        world.cursor_X += 20;
+        indexOfCurrentLetter++;
+        numberOfPressingTime++;
 
+    }
+
+    public void decreaseTheIndexAndVariable()
+    {
+        currWord = currWord.substring(0, currWord.length()-1); //remove the last letter from the user's input
+        word_X_Index -= 20;
+        world.cursor_X-=20;
+        indexOfCurrentLetter--;
+        numberOfPressingTime--;
+        if (numOfMistakeLetters > 0)
+        {
+            numOfMistakeLetters--;
+        }
+    }
+
+    /**
+     * Check if the input letter matches the current letter of ans key
+     */
     public boolean checkCorrectSpelling(GamePlay world, String str)
     {
-        //System.out.println(str.charAt(0) == world.ansKey.charAt(indexOfCurrentLetter));
         return str.charAt(0) == world.ansKey.charAt(indexOfCurrentLetter);
     }
 }

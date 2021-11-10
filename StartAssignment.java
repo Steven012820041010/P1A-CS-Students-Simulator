@@ -33,6 +33,9 @@ public class StartAssignment extends Button
         startImage[1] = new GreenfootImage("Start_Light.png"); 
     }
 
+    /**
+     * Check if mouse clicks this button
+     */
     public void detectClick()
     {
         if(Greenfoot.mouseClicked(this))
@@ -44,15 +47,18 @@ public class StartAssignment extends Button
 
     }
 
+    /**
+     * Check if mouse hovers on this button
+     */
     public void checkHover()
     {
         if (Greenfoot.mouseMoved(this))
         {
-            setImage(startImage[1]);
+            setImage(startImage[1]); //Dark
         }
         else if(Greenfoot.mouseMoved(null))
         {
-            setImage(startImage[0]);
+            setImage(startImage[0]); //Light
         }
 
     }

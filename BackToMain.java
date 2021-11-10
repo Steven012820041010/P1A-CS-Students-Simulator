@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class BackToMain here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @Steven Zhu, Bill Wei, Eric chen
+ * @Nov 8, 2021
  */
 public class BackToMain extends Button
 {
@@ -12,7 +12,7 @@ public class BackToMain extends Button
      * Act - do whatever the BackToMain wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    
+
     GreenfootImage[] backImage = new GreenfootImage[2]; //Stores "light" and "dark" of start button images
 
     public BackToMain()
@@ -32,6 +32,9 @@ public class BackToMain extends Button
         backImage[1] = new GreenfootImage("back_to_start_light.png"); 
     }
 
+    /**
+     * Check if mouse clicks this button
+     */
     public void detectClick()
     {
         if(Greenfoot.mouseClicked(this))
@@ -44,15 +47,18 @@ public class BackToMain extends Button
 
     }
 
+    /**
+     * Check if mouse hovers on this button
+     */
     public void checkHover()
     {
         if (Greenfoot.mouseMoved(this))
         {
-            setImage(backImage[1]);
+            setImage(backImage[1]); //Dark
         }
         else if(Greenfoot.mouseMoved(null))
         {
-            setImage(backImage[0]);
+            setImage(backImage[0]); //Light
         }
 
     }

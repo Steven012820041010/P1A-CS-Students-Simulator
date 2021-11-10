@@ -3,8 +3,8 @@ import java.util.*;
 /**
  * Write a description of class EndScreen here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @Steven Zhu, Bill Wei
+ * @Nov 8, 2021
  */
 public class EndScreen extends World
 {

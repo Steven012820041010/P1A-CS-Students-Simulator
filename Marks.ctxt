@@ -1,11 +1,9 @@
 #BlueJ class context
 comment0.target=Marks
-comment0.text=\n\ Write\ a\ description\ of\ class\ Marks\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=
-comment1.target=Marks()
-comment2.params=world
-comment2.target=void\ update(GamePlay)
-comment3.params=
-comment3.target=void\ round()
-comment3.text=\n\ Round\ the\ current\ mark\ to\ one\ decimal\ place\n
-numComments=4
+comment0.text=\n\ Write\ a\ description\ of\ class\ Marks\ here.\n\ \n\ @Steven\ Zhu,\ Bill\ Wei,\ Eric\ Chen\n\ @Nov\ 8,\ 2021\n
+comment1.params=world
+comment1.target=void\ update(GamePlay)
+comment2.params=
+comment2.target=void\ round()
+comment2.text=\n\ Round\ the\ current\ mark\ to\ one\ decimal\ place\n
+numComments=3
