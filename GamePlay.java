@@ -240,7 +240,7 @@ public class GamePlay extends World
     {
         nextLevelChoice = 0;
         late = new Gmail_Late();
-        addObject(late, 74, 518);
+        addObject(late, 760, 518);
         Greenfoot.delay(200);
         removeObject(late);
     }
@@ -283,7 +283,7 @@ public class GamePlay extends World
     public void increaseLevel()
     {
 
-        if (levelTimer.millisElapsed()>120)
+        if (levelTimer.millisElapsed()>40)
         {
             if (Greenfoot.isKeyDown("enter"))
             {

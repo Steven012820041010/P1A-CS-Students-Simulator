@@ -12,7 +12,7 @@ public class Keyboard extends Actor
      * Act - do whatever the Keyboard wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    GreenfootSound keyboardSound = new GreenfootSound("KBClick.wav");
+    GreenfootSound keyboardSound = new GreenfootSound("KBClick.mp3");
     SimpleTimer timer = new SimpleTimer(); // control the typing speed
     SimpleTimer removeTimer = new SimpleTimer();
 
