@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class MyWorld here.
  * 
- * @Steven, Bill
+ * @Steven Zhu, Bill Wei, Eric Chen
  * @Oct 28, 2021
  */
 public class TitlePage extends World

@@ -3,8 +3,8 @@ import java.util.*;
 /**
  * Write a description of class GamePlay here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @Bill Wei, Steven Zhu, Eric Chen
+ * @Oct 28, 2021
  */
 public class GamePlay extends World
 {
@@ -497,7 +497,7 @@ public class GamePlay extends World
     {
         String str = Greenfoot.getKey();
         if (str != null){
-
+            
             if (str.equals("backspace"))
             {
                 keyboard.remove(this);

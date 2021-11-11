@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Cursor_Off here.
  * 
- * @Steven Zhu, Bill Wei
+ * @Steven Zhu, Bill Wei, Eric Chen
  * @Nov 7, 2021
  */
 public class Cursor_Off extends Sign

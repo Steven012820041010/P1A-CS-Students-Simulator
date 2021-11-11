@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Button here.
  * 
- * @Steven Zhu, Bill wei
+ * @Steven Zhu, Bill wei, Eric Chen
  * @version Nov 3, 2021
  */
 public class Button extends Actor

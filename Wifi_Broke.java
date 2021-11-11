@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Wifi_Broke here.
  * 
- * @Steven Zhu, Bill Wei
+ * @Steven Zhu, Bill Wei, Eric Chen
  * @version Nov 9, 2021
  */
 public class Wifi_Broke extends World
@@ -20,7 +20,7 @@ public class Wifi_Broke extends World
     
     public void act()
     {
-        Greenfoot.delay(800); // Allow reader to read the descriptions from the page
+        Greenfoot.delay(400); // Allow reader to read the descriptions from the page
         
         //Switch to the loading page
         LoadingPage loading = new LoadingPage();

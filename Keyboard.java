@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * Write a description of class Keyboard here.
  * 
- * @Steven Zhu, Bill wei
+ * @Steven Zhu, Bill wei, Eric Chen
  * @Version Oct 28, 2021
  */
 public class Keyboard extends Actor
@@ -69,11 +69,12 @@ public class Keyboard extends Actor
     {   
         if (timer.millisElapsed()>30)
         {
+            keyboardSound.play();
             timer.mark();
             int numberOfSpace = numOfSpace();
             if (numberOfPressingTime <= world.lettersSize[world.level] + numberOfSpace)
             {
-                keyboardSound.play();
+                
                 Label currentLetter = new Label(str, 25); //Set the current letter into a label
                 letters.add(currentLetter);
                 if (checkCorrectSpelling(world, str) && numOfMistakeLetters == 0)

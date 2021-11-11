@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Gmail_Accepted
-comment0.text=\n\ Write\ a\ description\ of\ class\ Gmail_Accepted\ here.\n\ \n\ @Steven\ Zhu,\ Bill\ Wei\n\ @Nov\ 7,\ 2021\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ Gmail_Accepted\ here.\n\ \n\ @Steven\ Zhu,\ Bill\ Wei,\ Eric\ Chen\n\ @Nov\ 7,\ 2021\n
 comment1.params=
 comment1.target=void\ act()
 comment1.text=\n\ Act\ -\ do\ whatever\ the\ Gmail_Accepted\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n

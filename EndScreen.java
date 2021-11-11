@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * Write a description of class EndScreen here.
  * 
- * @Steven Zhu, Bill Wei
+ * @Steven Zhu, Bill Wei, Eric Chen
  * @Nov 8, 2021
  */
 public class EndScreen extends World

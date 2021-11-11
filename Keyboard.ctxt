@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Keyboard
-comment0.text=\n\ Write\ a\ description\ of\ class\ Keyboard\ here.\n\ \n\ @Steven\ Zhu,\ Bill\ wei\n\ @Version\ Oct\ 28,\ 2021\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ Keyboard\ here.\n\ \n\ @Steven\ Zhu,\ Bill\ wei,\ Eric\ Chen\n\ @Version\ Oct\ 28,\ 2021\n
 comment1.params=world
 comment1.target=void\ setWordX(GamePlay)
 comment1.text=\n\ Set\ the\ word\ index\ based\ on\ different\ level\n
